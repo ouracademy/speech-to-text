@@ -1,0 +1,10 @@
+<div class="record" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" fxFlexGap>
+    <button mat-icon-button (click)="start()" [ngClass]="{active: isCurrentStatus(3)}"><mat-icon>record_voice_over</mat-icon></button>
+    <button mat-icon-button (click)="pause()" [ngClass]="{active: isCurrentStatus(1)}"><mat-icon>pause</mat-icon></button>
+</div>
+<header >
+    <mat-form-field  color="primary" fxFlex="100">
+        <p class="form-label">{{ title }}</p>
+        <textarea matInput [formControl]="inputCtrl" matTextareaAutosize></textarea>
+    </mat-form-field>
+</header>
