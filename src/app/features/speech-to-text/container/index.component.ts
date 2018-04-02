@@ -21,7 +21,7 @@ export class IndexComponent {
       'text': ['', [
         Validators.required,
         Validators.minLength(2),
-        Validators.maxLength(20)
+        Validators.maxLength(10)
       ]]
     });
   }

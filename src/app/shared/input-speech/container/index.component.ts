@@ -63,11 +63,13 @@ export class InputSpeechComponent implements ControlValueAccessor {
         //instructions.text('No speech was detected. Try again.');
       };
     }
+    this.inputCtrl.valueChanges.subscribe(data=>{
+         this.onModelChange(this.inputCtrl.value)
+    })
   }
   updateInput(added) {
     let last = this.inputCtrl.value;
     this.inputCtrl.setValue(last + " " + added)
-    this.onModelChange(this.inputCtrl.value)
   }
   writeValue(value) {
     if (value) {

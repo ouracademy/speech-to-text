@@ -1,7 +1,28 @@
-    <div class="all-page gray" fxLayout fxLaoutAlign="center center">
+    <div class="all-page gray" fxLayout="column" fxLayoutAlign="center center">
         <mat-card [formGroup]="form">
+            <mat-card-title>
+                Sample speech to text - Sample using Angular Form
+            </mat-card-title>
           <input-speech title="Narre algo" formControlName="text"></input-speech>
         </mat-card> 
+        <div>
+            <p>Is valid : {{ form.valid }}</p>
+             <p>Form validation:</p>
+                <pre>
+                 
+                          'text': ['', [
+                            Validators.required,
+                            Validators.minLength(2),
+                            Validators.maxLength(10)
+                          ]]
+                        
+                </pre>
+              <p>Form value:</p>
+                <pre>
+                    {{ form.value | json }}
+                </pre>
+        </div>
     </div>
+  
    
   
