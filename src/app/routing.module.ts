@@ -3,12 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-  {
-    path: '' ,redirectTo: 'speech-to-text', pathMatch: 'full',
-    children: [
-      { path: 'speech-to-text', loadChildren: 'app/features/speech-to-text/index.module#IndexModule' }
-    ]
-  }
+  { path: '' ,redirectTo: 'speech-to-text', pathMatch: 'full' },
+  { path: 'speech-to-text', loadChildren: 'app/features/speech-to-text/index.module#IndexModule' }
 ];
 
 @NgModule({
