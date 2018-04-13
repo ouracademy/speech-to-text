@@ -1,0 +1,6 @@
+<div fxLayout="column" fxLayoutGap="20px">
+  <div class="record" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="start center" fxFlexGap>
+    <button mat-icon-button (click)="start()"  [ngClass]="{active: isCurrentStatus(3)}"><mat-icon>mic</mat-icon></button>
+    <button mat-icon-button (click)="pause()"  [ngClass]="{active: isCurrentStatus(1)}"><mat-icon>pause</mat-icon></button>
+</div>
+

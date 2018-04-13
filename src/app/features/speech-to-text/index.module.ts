@@ -7,6 +7,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material';
 
 import { InputSpeechModule } from '@shared/input-speech/index.module';
+import { GetValueFromSpeechModule } from '@shared/get-value-from-speech/index.module'
 import { RoutingModule } from './routing.module';
 
 import { IndexComponent } from './container/index.component';
@@ -19,7 +20,7 @@ const routes: Routes = [
     imports: [
         CommonModule, ReactiveFormsModule, 
         FlexLayoutModule, MatCardModule,
-        InputSpeechModule, 
+        InputSpeechModule,GetValueFromSpeechModule, 
         RoutingModule],
     declarations: [IndexComponent],
     providers: []
