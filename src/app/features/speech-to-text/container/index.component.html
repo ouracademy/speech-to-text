@@ -3,9 +3,9 @@
             <mat-card-title>
                 Sample speech to text - Sample using Angular Form
             </mat-card-title>
-          <input-speech title="Narre algo" formControlName="text"></input-speech>
+          <!--<input-speech title="Narre algo" formControlName="text"></input-speech>-->
           
-          <input getValueFromSpeech formControlName="text" /> 
+          <input  formControlName="text" getValueFromSpeech  /> 
         </mat-card> 
         <div>
             <p>Is valid : {{ form.valid }}</p>

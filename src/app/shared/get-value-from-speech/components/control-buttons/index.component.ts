@@ -1,6 +1,11 @@
 
-import { Component, Input, Output, EventEmitter, forwardRef, EventEmitter} from '@angular/core';
+import { Component, Directive, Input, Inject, Output, ViewChild,  ElementRef, EventEmitter} from '@angular/core';
 
+@Directive({
+  selector: '.container'
+})
+export class ContainerDirective {
+}
 
 
 
@@ -11,8 +16,10 @@ import { Component, Input, Output, EventEmitter, forwardRef, EventEmitter} from 
 })
 export class ControlButtonsComponent  {
 
+  top : string;
+  @ViewChild(ContainerDirective, { read: ElementRef }) private container;
 
-  value:string
+  value:string = ""
   recognition
   status = {
     paused: 1,
@@ -22,10 +29,16 @@ export class ControlButtonsComponent  {
   currentStatus = null
   
   @Output() onValue = new EventEmitter()
-  constructor() {
+  @Output() onClose = new EventEmitter()
+
+  constructor(@Inject('config') private config) {
 
   }
   ngOnInit() {
+    const {top} = this.config.host.getBoundingClientRect();
+    const {height} = this.container.nativeElement.getBoundingClientRect();
+    this.top = `${top - height}px`;
+
     try {
       var SpeechRecognition = window["SpeechRecognition"] || window["webkitSpeechRecognition"];
       this.recognition = new SpeechRecognition();
@@ -36,8 +49,8 @@ export class ControlButtonsComponent  {
     this.recognition.continuous = true;
     this.recognition.onresult = (event) => {
       var current = event.resultIndex;
-      var transcript = event.results[current][0].transcript;
-      var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
+      var text = event.results[current][0].transcript;
+      var mobileRepeatBug = (current == 1 && text == event.results[0][0].transcript);
       if (!mobileRepeatBug) {
         this.updateValue(text);
       }
@@ -75,5 +88,9 @@ export class ControlButtonsComponent  {
   pause() {
     this.recognition.stop();
     this.currentStatus = this.status.paused
+    
+  }
+  close(){
+    this.onClose.emit()
   }
 }

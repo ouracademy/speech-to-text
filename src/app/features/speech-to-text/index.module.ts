@@ -6,8 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material';
 
-import { InputSpeechModule } from '@shared/input-speech/index.module';
-import { GetValueFromSpeechModule } from '@shared/get-value-from-speech/index.module'
+import { GetValueFromSpeechModule } from '../../shared/get-value-from-speech/index.module'
 import { RoutingModule } from './routing.module';
 
 import { IndexComponent } from './container/index.component';
@@ -18,10 +17,10 @@ const routes: Routes = [
 
 @NgModule({
     imports: [
-        CommonModule, ReactiveFormsModule, 
+        CommonModule, ReactiveFormsModule,
         FlexLayoutModule, MatCardModule,
-        InputSpeechModule,GetValueFromSpeechModule, 
-        RoutingModule],
+        RoutingModule,
+        GetValueFromSpeechModule ],
     declarations: [IndexComponent],
     providers: []
 })

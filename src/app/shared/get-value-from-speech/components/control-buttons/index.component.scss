@@ -1,12 +1,22 @@
-.title-section{
-    font-weight:bold;
-    font-size:1.2rem;
-    margin :0;
-    text-decoration : none;
+.title-section {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0;
+    text-decoration: none;
 }
-.active{
-    color:green
+
+.active {
+    color: green
 }
-.record{
+
+.record {
     border: 1px solid #bcb4b4;
+}
+
+.container {
+    background-color: black;
+    color: #fff;
+    display: inline-block;
+    padding: 0.5em;
+    position: absolute;
 }

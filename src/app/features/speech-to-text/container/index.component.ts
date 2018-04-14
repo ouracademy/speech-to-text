@@ -15,6 +15,9 @@ export class IndexComponent {
       this.buildForm();
 
   }
+  onChange(v){
+    console.log(v)
+  }
 
   buildForm(): void {
     this.form = this.fb.group({

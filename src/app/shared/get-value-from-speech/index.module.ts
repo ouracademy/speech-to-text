@@ -9,7 +9,7 @@ import { MatInputModule, MatFormFieldModule, MatButtonModule, MatIconModule } fr
 
 
 import { GetValueFromSpeechDirective } from './container/index.directive';
-import { ControlButtonsComponent } from './components/control-buttons/index.component'
+import { ControlButtonsComponent,ContainerDirective } from './components/control-buttons/index.component'
 
 
 @NgModule({
@@ -18,7 +18,8 @@ import { ControlButtonsComponent } from './components/control-buttons/index.comp
         FormsModule, ReactiveFormsModule,
         FlexLayoutModule,
         MatInputModule, MatFormFieldModule, MatButtonModule, MatIconModule],
-    exports: [ GetValueFromSpeechDirective, ControlButtonsComponent],
-    declarations: [GetValueFromSpeechDirective,ControlButtonsComponent]
+    exports: [ GetValueFromSpeechDirective],
+    declarations: [GetValueFromSpeechDirective,ControlButtonsComponent,ContainerDirective],
+    entryComponents: [ControlButtonsComponent]
 })
 export class GetValueFromSpeechModule { }
