@@ -1,13 +1,22 @@
-    <div class="all-page gray" fxLayout="column" fxLayoutAlign="center center">
-        <mat-card [formGroup]="form">
-            <mat-card-title>
-                Sample speech to text - Sample using Angular Form
-            </mat-card-title>
-          <!--<input-speech title="Narre algo" formControlName="text"></input-speech>-->
-          
-          <input  formControlName="text" getValueFromSpeech  /> 
-        </mat-card> 
-        <div>
+<div fxLayoutGap="15px" class="all-page gray" fxLayout="column" fxLayoutAlign="center center">
+    <mat-card [formGroup]="form" fxLayout="column" fxLayoutGap="15px">
+        <mat-card-title>
+            Sample speech to text - Sample using Angular Form
+        </mat-card-title>
+        <div fxLayout>
+            <textarea fxFlex="100" formControlName="text" getValueFromSpeech>
+            </textarea>
+        </div>
+        <button mat-raised-button color="primary" (click)="save(containerFormat)">Guardar</button>
+    </mat-card>
+    <mat-card>
+        <mat-card-title>Form value:</mat-card-title>
+        <pre>
+                <code #containerFormat></code>
+            </pre>
+    </mat-card>
+
+    <!-- <div>
             <p>Is valid : {{ form.valid }}</p>
              <p>Form validation:</p>
                 <pre>
@@ -23,8 +32,5 @@
                 <pre>
                     {{ form.value | json }}
                 </pre>
-        </div>
-    </div>
-  
-   
-  
+        </div>-->
+</div>

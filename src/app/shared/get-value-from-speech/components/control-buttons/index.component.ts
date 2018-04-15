@@ -31,13 +31,14 @@ export class ControlButtonsComponent  {
   @Output() onValue = new EventEmitter()
   @Output() onClose = new EventEmitter()
 
-  constructor(@Inject('config') private config) {
+  constructor(/*@Inject('config') private config*/) {
 
   }
   ngOnInit() {
-    const {top} = this.config.host.getBoundingClientRect();
-    const {height} = this.container.nativeElement.getBoundingClientRect();
-    this.top = `${top - height}px`;
+   // const {top} = this.config.host.getBoundingClientRect();
+   // const {height} = this.container.nativeElement.getBoundingClientRect();
+   // console.log(height)
+    //this.top = `${top - height}px`;
 
     try {
       var SpeechRecognition = window["SpeechRecognition"] || window["webkitSpeechRecognition"];
@@ -46,21 +47,26 @@ export class ControlButtonsComponent  {
     catch (e) {
       console.error(e);
     }
+    
     this.recognition.continuous = true;
     this.recognition.onresult = (event) => {
+      console.log("re",event)
       var current = event.resultIndex;
       var text = event.results[current][0].transcript;
       var mobileRepeatBug = (current == 1 && text == event.results[0][0].transcript);
       if (!mobileRepeatBug) {
         this.updateValue(text);
       }
+      event["stopPropagation"]()
     };
 
-    this.recognition.onstart = function () {
+    this.recognition.onstart = (e) => {
+      console.log("start",e)
       // instructions.text('Voice recognition activated. Try speaking into the microphone.');
     }
 
-    this.recognition.onspeechend = function () {
+    this.recognition.onspeechend = (e) =>{
+      console.log("doing",e)
       //instructions.text('You were quiet for a while so voice recognition turned itself off.');
     }
 
@@ -71,6 +77,7 @@ export class ControlButtonsComponent  {
     }
   }
   updateValue(text) {
+    console.log("updating")
     this.value = this.value + text
     this.onValue.emit(this.value)
   }
