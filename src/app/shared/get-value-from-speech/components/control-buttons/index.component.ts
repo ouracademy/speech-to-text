@@ -80,6 +80,7 @@ export class ControlButtonsComponent  {
     console.log("updating")
     this.value = this.value + text
     this.onValue.emit(this.value)
+    this.value = ""
   }
   start() {
     this.recognition.start();

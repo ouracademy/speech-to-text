@@ -1,8 +1,8 @@
 
-import { Output, EventEmitter, ComponentFactoryResolver, ComponentRef, Directive, ElementRef, HostListener, Injector, Input, ReflectiveInjector, Renderer2, TemplateRef, Type, ViewContainerRef, ViewRef } from '@angular/core';
+import { Output, EventEmitter, Directive, TemplateRef,ElementRef, HostListener, Input } from '@angular/core';
 import { NgControl } from "@angular/forms";
-import { CdkOverlayOrigin, Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { CdkPortal, ComponentPortal, Portal } from '@angular/cdk/portal';
+import { Overlay, OverlayConfig, OverlayRef, OriginConnectionPosition } from '@angular/cdk/overlay';
+import { ComponentPortal, Portal } from '@angular/cdk/portal';
 
 import { ControlButtonsComponent } from '../components/control-buttons/index.component'
 import { Observable } from 'rxjs/Observable'
@@ -12,20 +12,34 @@ import { of } from 'rxjs/observable/of';
   selector: '[getValueFromSpeech]'
 })
 export class GetValueFromSpeechDirective {
+  private _position
+  private _config: OverlayConfig = {}
 
   @Input('template') templateRef: TemplateRef<any>;
-
-
-  private componentRef: ComponentRef<ControlButtonsComponent>;
+  @Input('position') set position(data) {
+    switch (data) {
+      case "above":
+        this._position = this.overlay
+          .position()
+          .connectedTo(
+            this.element, { originX: 'end', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' });
+        this._config.positionStrategy = this._position
+        break;
+    }
+  }
   _overlayRef: OverlayRef
 
   constructor(
     public overlay: Overlay,
     private element: ElementRef,
-    private control: NgControl,
-    private renderer: Renderer2,
-    private resolver: ComponentFactoryResolver,
-    private vcr: ViewContainerRef) {
+    private control: NgControl) {
+
+    this._position = this.overlay
+      .position()
+      .connectedTo(
+        this.element, { originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' });
+
+    this._config = new OverlayConfig({ positionStrategy: this._position });
   }
 
   private _detach() {
@@ -36,66 +50,24 @@ export class GetValueFromSpeechDirective {
 
   @HostListener('mouseenter')
   mouseenter() {
-
+    this._detach();
     this.openPanel().subscribe((ref: ComponentRef<ControlButtonsComponent>) => {
       ref.instance.onValue.subscribe(e => {
-        console.log("nuevo c", e)
-        this.control.control.setValue(e);
+        this.control.control.setValue(this.control.control.value + e);
       })
       ref.instance.onClose.subscribe(e => {
         this.destroy();
       })
-
-      this.control.valueChanges.subscribe(e => {
-        console.log("va", e)
-        //this.componentRef.instance.value = e
-      })
-
     })
-
-
-    /* if (this.componentRef) return;
-     const factory = this.resolver.resolveComponentFactory(ControlButtonsComponent);
-     const injector = ReflectiveInjector.resolveAndCreate([
-       {
-         provide: 'config',
-         useValue: {
-           host: this.element.nativeElement
-         }
-       }
-     ]);
- 
-     this.componentRef = this.vcr.createComponent(factory, 0, injector);*/
-
   }
 
   openPanel(): Observable<ComponentRef<ControlButtonsComponent>> {
-    this._detach()
-    let strategy = this.overlay.position()
-      .connectedTo(
-        this.element,
-        { originX: 'start', originY: 'top' },
-        { overlayX: 'start', overlayY: 'bottom' });
-
-    let config = new OverlayConfig({ positionStrategy: strategy });
-    this._overlayRef = this.overlay.create(config);
-    const portal = new ComponentPortal(ControlButtonsComponent);
-    return of(this._overlayRef.attach(portal))
-
+    this._overlayRef = this.overlay.create(this._config);
+    return of(this._overlayRef.attach(new ComponentPortal(ControlButtonsComponent)))
   }
-
-
-
-
-
   destroy() {
-    /*this.componentRef && this.componentRef.destroy();
-    this.componentRef = null;*/
-
     this._detach()
-    
   }
-
   ngOnDestroy() {
     this.destroy();
   }
