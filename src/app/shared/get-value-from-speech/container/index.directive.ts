@@ -1,5 +1,5 @@
 
-import { Output, EventEmitter, Directive, TemplateRef,ElementRef, HostListener, Input } from '@angular/core';
+import { Output, EventEmitter, Directive, TemplateRef, ComponentRef,ElementRef, HostListener, Input } from '@angular/core';
 import { NgControl } from "@angular/forms";
 import { Overlay, OverlayConfig, OverlayRef, OriginConnectionPosition } from '@angular/cdk/overlay';
 import { ComponentPortal, Portal } from '@angular/cdk/portal';
